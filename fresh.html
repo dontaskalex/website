@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Boutons</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:300"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link rel="stylesheet" href="./button.css" />
+  </head>
+
+  <body>
+    <!-- partial:index.partial.html -->
+    <h1 id="howmany">How many days do you want to cook?</h1>
+
+    <button class="B1" id="1" onclick="freshGet(1)">
+      1
+    </button>
+    <button class="B1" id="2" onclick="freshGet(2)">
+      2
+    </button>
+    <button class="B1" id="3" onclick="freshGet(3)">
+      3
+    </button>
+    <button class="B1" id="4" onclick="freshGet(4)">
+      4
+    </button>
+    <button class="B1" id="5" onclick="freshGet(5)">
+      5
+    </button>
+    <button class="B1" id="6" onclick="freshGet(6)">
+      6
+    </button>
+    <button class="B1" id="7" onclick="freshGet(7)">
+      7
+    </button>
+
+    <div id="days"></div>
+    <div id="final"></div>
+    <!-- partial -->
+  </body>
+  <script>
+    var meals = [
+      [
+        "Hackbällchen in Senfsoße",
+        ["Zwiebel", 1, "Stück"],
+        ["Semmelbrösel", 25, "g"],
+        ["gemischtes Hackfleisch", 300, "g"],
+        ["Basmatireis", 150, "g"],
+        ["Porree", 1, "Stück"],
+        ["körniger Senf", 17, "g"],
+        ["mittelscharfer Senf", 10, "ml"],
+        ["Rinderbrühe", 4, "g"],
+        ["Petersilie", 10, "g"],
+        ["Schnittlauch", 10, "g"],
+        ["Honig", 8, "g"],
+        ["Karotte", 1, "Stück"],
+        ["Kochsahne", 200, "g"],
+        ["Limette", 200, "Stück"]
+      ],
+      [
+        "Veggie-Fajitas mit Paprika, Pilzen und Bohnen",
+        ["rote Zwiebel", 1, "Stück"],
+        ["Tomate", 2, "Stück"],
+        ["Paprika", 1, "Stück"],
+        ["Tortilla-Wraps", 8, "Stück"],
+        ["Käse-Mix", 50, "g"],
+        ["Limette", 1, "Stück"],
+        ["saure Sahne", 150, "g"],
+        ["Champignons", 200, "g"],
+        ["schwarze Bohnen", 1, "Stück"],
+        ["Sahnejoghurt", 100, "g"],
+        ["Sriracha Sauce", 15, "ml"]
+      ],
+      [
+        "Veganer BBQ-Burger",
+        ["Veganer Burger Patty", 200, "g"],
+        ["BBQ-Soße", 40, "ml"],
+        ["veganer Burger Bun mit Sesam", 2, "Stück"],
+        ["Süßkartoffel", 1, "Stück"],
+        ["vegane Mayonnaise", 50, "g"],
+        ["Salatherz", 1, "Stück"],
+        ["Tomate", 1, "Stück"],
+        ["rote Zwiebel", 1, "Stück"],
+        ["Balsamico-Crème", 12, "ml"],
+        ["Veganes cremiges Sojaprodukt", 100, "g"]
+      ],
+      [
+        "Maxi-Tortelli mit Ricotta-Füllung",
+        ["Maxi Tortelli Ricotta Spinat", 400, "g"],
+        ["Babyspinat", 75, "g"],
+        ["Kochsahne", 200, "g"],
+        ["geriebener Hartkäse", 40, "g"],
+        ["Gebüsebrühe", 4, "g"],
+        ["Kampot Pfeffer", 2, "g"],
+        ["Schalotte", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Champignons", 150, "g"]
+      ],
+      [
+        "Süßkartoffelgnocchi in Paprikasoße",
+        ["Süßkartoffelgnocchi", 400, "g"],
+        ["Kochsahne", 200, "g"],
+        ["Gemüsebrühe", 4, "g"],
+        ["Schalotte", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Paprika", 2, "Stück"],
+        ["Babyspinat", 50, "g"],
+        ["Petersilie", 10, "g"],
+        ["Zitrone", 1, "Stück"],
+        ["rote Chilischote", 1, "Stück"],
+        ["Haselnüsse", 10, "g"],
+        ["Butter", 10, "g"]
+      ],
+      [
+        "Italienische Spätzlepfanne",
+        ["frische Eierspätzle", 400, "g"],
+        ["rote Chilischote", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Frühlingszwiebel", 2, "Stück"],
+        ["Kochsahne", 200, "g"],
+        ["Petersilie", 5, "g"],
+        ["Thymian", 5, "g"],
+        ["Hartkäse", 20, "g"],
+        ["Zucchini", 1, "Stück"],
+        ["Kirschtomaten", 250, "g"],
+        ["Basilikumpaste", 15, "ml"],
+        ["Gemüsebrühe", 4, "g"]
+      ],
+      [
+        "Halloumi auf Kichererbsengemüse",
+        ["Karotte", 2, "Stück"],
+        ["Halloumi", 200, "g"],
+        ["Zitrone", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Minze", 5, "g"],
+        ["Petersilie", 5, "g"],
+        ["orientalische Gewürzmischung", 4, "g"],
+        ["Kichererbsen", 1, "Stück"],
+        ["Zucchini", 1, "Stück"],
+        ["Tomate", 1, "Stück"],
+        ["grüne Oliven", 70, "g"],
+        ["Sahnejoghurt", 100, "g"],
+        ["Gewürzmischung Harissa", 2, "g"]
+      ],
+      [
+        "Frische Linguine mit Kräuterfrischkäse",
+        ["frische Linguine", 375, "g"],
+        ["Frischkäse", 100, "g"],
+        ["Basilikum", 5, "g"],
+        ["Petersilie", 5, "g"],
+        ["Kirschtomaten", 125, "g"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Aubergine", 1, "Stück"],
+        ["Tomatenpesto", 25, "g"],
+        ["Babyspinat", 50, "g"],
+        ["Kürbiskerne", 10, "g"],
+        ["Hartkäse", 20, "g"]
+      ],
+      [
+        "Italienische Pasta-Bowl mit Büffelmozzarella",
+        ["Büffelmozzarella", 1, "Stück"],
+        ["Hartkäse", 20, "g"],
+        ["Kirschtomaten", 125, "g"],
+        ["Penne", 250, "g"],
+        ["Zucchini", 1, "Stück"],
+        ["Balsamico-Crème", 12, "ml"],
+        ["rote Spitzpaprika", 1, "Stück"],
+        ["Cashewkerne", 10, "g"],
+        ["Basilikumpaste", 24, "ml"],
+        ["Basilikum", 10, "g"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Balsamico-Essig", 12, "ml"]
+      ],
+      [
+        "Schweinelachssteak mit Bohnengemüse",
+        ["Gewürzmischung Paprika", 2, "g"],
+        ["Kartoffeln", 600, "g"],
+        ["Schweinelachssteak", 280, "g"],
+        ["Butter", 40, "g"],
+        ["Knoblauchzehne", 1, "Stück"],
+        ["Buschbohnen", 150, "g"],
+        ["Petersilie", 5, "g"],
+        ["Thymian", 5, "g"],
+        ["Tomate", 1, "Stück"]
+      ],
+      [
+        "Seehecht auf buntem Gemüsecurry",
+        ["Pak Choi", 1, "Stück"],
+        ["Karotte", 1, "Stück"],
+        ["Kartoffeln", 400, "g"],
+        ["Gemüsebrühe", 4, "g"],
+        ["Tikka-Masala-Pasta", 40, "g"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Kokosmilch", 250, "ml"],
+        ["Seehecht", 250, "g"]
+      ],
+      [
+        "Vegetarisches Massaman-Curry",
+        ["Süßkartoffel", 1, "Stück"],
+        ["Kokosmilch", 250, "ml"],
+        ["Zwiebel", 1, "Stück"],
+        ["Massaman-Curry-Paste", 25, "g"],
+        ["Kartoffeln", 2, "Stück"],
+        ["Zucchini", 1, "Stück"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Gemüsebrühe", 4, "g"],
+        ["Kichererbsen", 1, "Stück"],
+        ["Erdnussbutter", 50, "g"],
+        ["Limette", 1, "Stück"],
+        ["rote Chilischote", 1, "Stück"]
+      ],
+      [
+        "Chilinudeln in Erdnusssoße",
+        ["Kaiserschoten", 150, "g"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Karotte", 3, "Stück"],
+        ["Erdnüsse", 10, "g"],
+        ["Erdnussbutter", 50, "g"],
+        ["Sojasoße", 25, "ml"],
+        ["Limette", 1, "Stück"],
+        ["Ingwer", 8, "g"],
+        ["Knoblauchzehe", 2, "Stück"],
+        ["Chili-Nudeln", 200, "g"],
+        ["Kokosmilch", 150, "ml"],
+        ["rote Chilischote", 1, "Stück"]
+      ],
+      [
+        "Chorizo-Gemüsepfanne",
+        ["Chorizo", 80, "g"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Jasminreis", 150, "g"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Limette", 1, "Stück"],
+        ["Avocado", 1, "Stück"],
+        ["Tomate", 2, "Stück"],
+        ["Paprika Gewürz", 4, "g"],
+        ["Mais", 1, "Stück"],
+        ["Hühnerbrühe", 4, "g"],
+        ["Schmand", 100, "g"],
+        ["Paprika", 1, "Stück"],
+        ["Tomatenmark", 1, "EL"]
+      ],
+      [
+        "Mediterraner Flammkuchen mit Käse",
+        ["Flammkuchenteig", 1, "Stück"],
+        ["Schmand", 150, "g"],
+        ["Tomatenpesto", 50, "g"],
+        ["Zucchini", 1, "Stück"],
+        ["Käse-Mix", 50, "g"],
+        ["Mozzarella", 1, "Stück"],
+        ["Balsamico-Crème", 12, "ml"],
+        ["Tomate", 2, "Stück"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Hartkäse geraspelt", 40, "g"]
+      ],
+      [
+        "Vegetarische Bowl nach Thai Art",
+        ["Jasminreis", 150, "g"],
+        ["Kokosmilch", 150, "ml"],
+        ["Avocado", 1, "Stück"],
+        ["Karotte", 2, "Stück"],
+        ["geröstete Erdnüsse", 10, "g"],
+        ["rote Chilischote", 1, "Stück"],
+        ["Limette", 1, "Stück"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Gurke", 0.5, "Stück"],
+        ["Sweet-Chili-Soße", 25, "g"],
+        ["Brokkoli", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Koriander", 5, "g"],
+        ["Minze", 5, "g"]
+      ],
+      [
+        "Gemüse-Paella mit gebratenem Halloumi",
+        ["Basmati-Wildreis-Mischung", 150, "g"],
+        ["Curry Gewürz", 2, "g"],
+        ["Gemüsebrühe", 6, "g"],
+        ["Schalotte", 1, "Stück"],
+        ["Buschbohnen", 100, "g"],
+        ["Karotte", 1, "Stück"],
+        ["Halloumi", 200, "g"],
+        ["Brokkoli", 1, "Stück"],
+        ["Petersilie", 5, "g"],
+        ["Thymian", 5, "g"],
+        ["Calabrese Pesto", 50, "g"],
+        ["Joghurt", 75, "g"]
+      ],
+      [
+        "Babyspinat-Spätzle-Pfanne",
+        ["frische Eierspätzle", 400, "g"],
+        ["Kochsahne", 200, "g"],
+        ["Champignons", 150, "g"],
+        ["Gemüsebrühe", 2, "g"],
+        ["rote Zwiebel", 1, "Stück"],
+        ["Tomate", 1, "Stück"],
+        ["Walnüsse", 10, "g"],
+        ["rote Chilischote", 0.5, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Paprika Gewürz", 4, "g"],
+        ["Babyspinat", 100, "g"]
+      ],
+      [
+        "Indisches Dal mit Butter-Chapati-Brot",
+        ["Süßkartoffel", 1, "Stück"],
+        ["Zucchini", 1, "Stück"],
+        ["rote Spitzpaprika", 1, "Stück"],
+        ["Tikka-Masala-Paste", 25, "g"],
+        ["stückige Tomaten", 1, "Stück"],
+        ["Chapati-Brot", 2, "Stück"],
+        ["Rote Linsen", 75, "g"],
+        ["Gemüsebrühe", 6, "g"],
+        ["Butter", 20, "g"],
+        ["Minze", 5, "g"],
+        ["Petersilie", 5, "g"],
+        ["Crème fraîche", 150, "g"],
+        ["Zwiebel", 1, "Stück"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"]
+      ],
+      [
+        "Halloumi-Auberginen-Burger",
+        ["Pastinake", 1, "Stück"],
+        ["rote Zwiebel", 1, "Stück"],
+        ["Aubergine", 1, "Stück"],
+        ["Rucola", 50, "g"],
+        ["Joghurt", 100, "g"],
+        ["Karotte", 2, "Stück"],
+        ["Halloumi", 200, "g"],
+        ["Mayonnaise", 17, "ml"],
+        ["Briochebrötchen", 2, "Stück"],
+        ["Harissa Gewürz", 2, "g"],
+        ["Petersilie", 5, "g"],
+        ["Crème fraîche", 150, "g"],
+        ["Zwiebel", 1, "Stück"],
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"]
+      ],
+      [
+        "Mediterrane Fiorelli mit Kräuter-Käse-Bröseln",
+        ["Fiorelli mit Pilzfüllung", 300, "g"],
+        ["Zucchini", 1, "Stück"],
+        ["Paprika", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["rote Zwiebel", 1, "Stück"],
+        ["Oregano", 5, "g"],
+        ["Petersilie", 5, "g"],
+        ["geriebener Hartkäse", 40, "g"],
+        ["Kochsahne", 200, "g"],
+        ["Gemüsebrühe", 4, "g"],
+        ["Panko Mehl", 30, "g"],
+        ["Paprika Gewürz", 2, "g"]
+      ],
+      [
+        "Tomaten-Käse-Tartelettes",
+        ["Blätterteig", 1, "Stück"],
+        ["getrocknete Tomaten", 75, "g"],
+        ["Mozzarella", 125, "g"],
+        ["Salatmischung", 50, "g"],
+        ["Gurke", 1, "Stück"],
+        ["Honig-Senf-Dressing", 50, "ml"],
+        ["Schmand", 150, "g"],
+        ["Tomaten", 1, "Stück"]
+      ],
+      [
+        "Hello Quesedillas! Käse-Tortillas",
+        ["Tortilla-Wraps", 4, "Stück"],
+        ["Käse-Mix", 150, "g"],
+        ["Kidneybohnen", 1, "Stück"],
+        ["Gewürzmischung Hello Fiesta", 4, "g"],
+        ["Limette", 1, "Stück"],
+        ["rote Zwiebel", 1, "Stück"],
+        ["Rotweinessig", 12, "ml"],
+        ["Kirschtomaten", 125, "g"],
+        ["Avocado", 1, "Stück"],
+        ["saure Sahne", 150, "g"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Petersilie", 5, "g"],
+        ["Schnittlauch", 5, "g"]
+      ],
+      [
+        "Quinoa-Bowl mit feurigen Kidneybohnen",
+        ["Frühlingszwiebel", 1, "Stück"],
+        ["Quinoa", 100, "g"],
+        ["Limette", 1, "Stück"],
+        ["Kidneybohnen", 0.5, "Stück"],
+        ["gemahlener Kumin", 2, "g"],
+        ["Tomate", 2, "Stück"],
+        ["Koriander", 5, "g"],
+        ["Minze", 5, "g"],
+        ["Avocado", 1, "Stück"],
+        ["grüne Chilischote", 0.5, "Stück"],
+        ["Salatherz", 1, "Stück"],
+        ["Sahnejoghurt", 100, "g"],
+        ["Gemüsebrühe", 4, "g"],
+        ["Gewürzmischung Hello Fiesta", 2, "g"],
+        ["Knoblauchzehe", 1, "Stück"]
+      ],
+      [
+        "Würziger Halloumi auf Tabbouleh",
+        ["Bulgur", 150, "g"],
+        ["Tomate", 2, "Stück"],
+        ["Zitrone", 0.5, "Stück"],
+        ["Frühlingszwiebel", 2, "Stück"],
+        ["Harissa Gewürz", 2, "g"],
+        ["Minze", 10, "g"],
+        ["Petersilie", 10, "g"],
+        ["Halloumi", 250, "g"],
+        ["Sahnejoghurt", 100, "g"],
+        ["Gemüsebrühe", 4, "g"]
+      ],
+      [
+        "Mini-Klöße-Auflauf mit Wirsing",
+        ["Kochsahne", 200, "g"],
+        ["Zwiebel", 1, "Stück"],
+        ["geriebener Bergiausenkäse", 100, "g"],
+        ["Petersilie", 5, "g"],
+        ["Schnittlauch", 5, "g"],
+        ["Wirsing", 250, "g"],
+        ["Muskat Gewürz", 5, "g"],
+        ["Mini-Klöße", 400, "g"],
+        ["Karotte", 1, "Stück"],
+        ["Porree", 1, "Stück"]
+      ],
+      [
+        "Mediterranes Fociaccia-Sandwich",
+        ["Mozzarella", 1, "Stück"],
+        ["Paprika", 1, "Stück"],
+        ["Balsamico-Crème", 24, "ml"],
+        ["Rosmarinzweig", 0.5, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Fociacca", 2, "Stück"],
+        ["Zucchini", 1, "Stück"],
+        ["Basilikumpaste", 15, "ml"],
+        ["Tomatenpesto", 25, "g"],
+        ["saure Sahne", 150, "g"],
+        ["Tomate", 2, "Stück"],
+        ["Frühlingszwiebel", 1, "Stück"]
+      ],
+      [
+        "Penne mit selbstgemachtem Tomatenpesto",
+        ["Oliven, schwarz ohne Stein", 50, "g"],
+        ["Penne", 250, "g"],
+        ["Sonnenblumenkerne", 20, "g"],
+        ["Frischkäse", 100, "g"],
+        ["Hartkäse gerieben", 20, "g"],
+        ["Rucola", 50, "g"],
+        ["Balsamico-Crème", 12, "ml"],
+        ["Aubergine", 1, "Stück"],
+        ["Knoblauchzehe", 1, "Stück"],
+        ["Hartkäse geraspelt", 20, "g"],
+        ["getrocknete Tomaten", 50, "g"]
+      ]
+    ];
+    var daysAmount;
+    var week = [];
+    var liste = [];
+    var randomMeal;
+    var randomNumber;
+    var mealsTmp = [];
+    var weekId = [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday"
+    ];
+    function freshGet(userInput) {
+      daysAmount = userInput;
+      removeButton();
+      fillTheWeek();
+      sumUp();
+      writeList();
+    }
+    function removeButton() {
+      var elem = document.getElementById("howmany");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("1");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("2");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("3");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("4");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("5");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("6");
+      elem.parentNode.removeChild(elem);
+      var elem = document.getElementById("7");
+      elem.parentNode.removeChild(elem);
+    }
+
+    function fillTheWeek() {
+      for (var i = 0; i < daysAmount; i++) {
+        randomNumber = Math.floor(Math.random() * meals.length);
+        randomMeal = meals[randomNumber][0];
+        document.getElementById("days").innerHTML +=
+          "<div ondblclick='remove(this)'>" + randomMeal + "<br/>" + "</div>";
+        for (var j = 1; j < meals[randomNumber].length; j++) {
+          liste.push(meals[randomNumber][j]);
+        }
+        if (meals.length > 0) {
+          meals.splice(randomNumber, 1);
+        }
+      }
+      //document.getElementById("liste").innerHTML = liste[2][0];
+      //liste = [];
+      //document.getElementById("liste").innerHTML = meals[randomNumber];
+    }
+    function sumUp() {
+      var tmp = liste.length;
+      //document.getElementById("liste").innerHTML = "tmp";
+      for (var i = 0; i < tmp; i++) {
+        for (var j = i + 1; j < tmp; j++) {
+          if (liste[i][0] == liste[j][0]) {
+            liste[i][1] += liste[j][1];
+            liste.splice(j, 1);
+            tmp -= 1;
+          }
+        }
+      }
+    }
+    function writeList() {
+      for (var i = 0; i < liste.length; i++) {
+        document.getElementById("final").innerHTML +=
+          "<div ondblclick='remove(this)'>" + liste[i] + "<br/>" + "</div>";
+      }
+    }
+    function remove(el) {
+      var element = el;
+      element.remove();
+    }
+  </script>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Boutons</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:300"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link rel="stylesheet" href="./button.css" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="buttons">
+      <button class="B1" id="bpm" onclick="bpmGet()">BPM</button>
+      <button class="B2" id="key" onclick="keyGet()">KEY</button>
+      <button class="B3" id="genre" onclick="genreGet()">GENRE</button>
+      <button class="B4" id="splice" onclick="spliceGet()">SPLICE</button>
+    </div>
+    <!-- partial -->
+  </body>
+  <script>
+    var url;
+    var genreNow;
+    var bpmNow;
+    var keyNow;
+    var scaleNow;
+    var key = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+    var scale = ["major", "minor"];
+    var genre = [
+      "cinematic",
+      "game-audio",
+      "rock",
+      "indie-dance",
+      "jazz",
+      "blues",
+      "heavy-metal",
+      "funk",
+      "dub",
+      "reggae",
+      "folk",
+      "techno",
+      "house",
+      "tech-house",
+      "deep-house",
+      "disco",
+      "electro",
+      "minimal-techno",
+      "hard-techno",
+      "garage",
+      "progressive-house",
+      "hardstyle",
+      "hip-Hop",
+      "trap",
+      "rnb",
+      "soul",
+      "reggaeton",
+      "dancehall",
+      "moombahton",
+      "future-bass",
+      "glitch-hop",
+      "pop",
+      "eDM",
+      "trance",
+      "psy-trance",
+      "future-house",
+      "fidget-house",
+      "tropical-house",
+      "african",
+      "asian",
+      "brazilian",
+      "caribbean",
+      "indian",
+      "latin-american",
+      "middle-eastern",
+      "south-asian",
+      "downtempo",
+      "ambient",
+      "synthwave",
+      "idm",
+      "experimental",
+      "ehiptune",
+      "trip-hop",
+      "footwork",
+      "drum-and-bass",
+      "jungle",
+      "drumstep",
+      "breakbeat",
+      "dubstep",
+      "tearout-dubstep",
+      "grime",
+      "leftfield-bass"
+    ];
+    var min = 60;
+    var max = 200;
+    function bpmGet() {
+      bpmNow = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById("bpm").innerHTML = bpmNow;
+    }
+    function keyGet() {
+      keyNow = key[Math.floor(Math.random() * key.length)];
+      scaleGet();
+    }
+    function scaleGet() {
+      scaleNow = scale[Math.floor(Math.random() * scale.length)];
+      document.getElementById("key").innerHTML = keyNow + scaleNow;
+    }
+    function genreGet() {
+      genreNow = genre[Math.floor(Math.random() * genre.length)];
+      document.getElementById("genre").innerHTML = genreNow;
+    }
+
+    function spliceGet() {
+      urlNow = "https://splice.com/sounds/search?sound_type=sample";
+      if (keyNow) {
+        urlNow += "&key=" + keyNow;
+      }
+      if (scaleNow) {
+        urlNow += "&chord_type=" + scaleNow;
+      }
+      if (genreNow) {
+        urlNow += "&genre=" + genreNow;
+      }
+
+      if (bpmNow) {
+        urlNow += "&bpm_min=" + bpmNow + "&bpm_max=" + bpmNow;
+      }
+      window.open(urlNow);
+    }
+
+    $("button").click(function () {
+      $.ajax({
+        //url: "dontaskalex.de",
+
+        url: "https://splice.com/sounds/search?sound_type=sample&genre=grime",
+        type: "get",
+        dataType: "html",
+        async: false,
+        timeout: 30000,
+        success: function (data) {
+          var n = data.includes("main-container");
+          alert(n);
+        }
+      });
+    });
+  </script>
+</html>

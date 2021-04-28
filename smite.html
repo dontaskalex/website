@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Boutons</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:300"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link rel="stylesheet" href="./button.css" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="buttons">
+      <button class="B1" id="warrior" onclick="warriorGet()">Warrior</button>
+      <button class="B2" id="guardian" onclick="guardianGet()">Guardian</button>
+      <button class="B3" id="assassin" onclick="assassinGet()">Assassin</button>
+      <button class="B4" id="mage" onclick="mageGet()">Mage</button>
+      <button class="B5" id="hunter" onclick="hunterGet()">Hunter</button>
+    </div>
+    <!-- partial -->
+  </body>
+  <script>
+    var warrior = [
+      "King Arthur",
+      "Cu Chulain",
+      "Erlang Shen",
+      "Guan Yu",
+      "Mulan",
+      "Sun Wukong",
+      "Horus",
+      "Osiris",
+      "Achilles",
+      "Nike",
+      "Vamana",
+      "Amaterasu",
+      "Chaac",
+      "Odin",
+      "Tyr",
+      "Bellona",
+      "Hercules"
+    ];
+    var guardian = [
+      "Artio",
+      "Xing Tian",
+      "Geb",
+      "Khepri",
+      "Sobek",
+      "Cthulu",
+      "Ares",
+      "Athena",
+      "Cerberus",
+      "Ganesha",
+      "Kumbhakarna",
+      "Kuzenbo",
+      "Cabrakan",
+      "Fafnir",
+      "Jormungandr",
+      "Ymir",
+      "Bacchus",
+      "Sylvanus",
+      "Terra",
+      "Yemoja"
+    ];
+    var hunter = [
+      "Cernunos",
+      "Hou Yi",
+      "Jing Wei",
+      "Anhur",
+      "Neith",
+      "Apollo",
+      "Artemis",
+      "Chiron",
+      "Medusa",
+      "Rama",
+      "Danzaburou",
+      "Hachiman",
+      "Izanami",
+      "Ah Muzen Cab",
+      "Xbalanque",
+      "Heimdallr",
+      "Skadi",
+      "Ullr",
+      "Cupid",
+      "Chernobog"
+    ];
+    var mage = [
+      "Merlin",
+      "The Morrigan",
+      "Ao Kuang",
+      "Chang'e",
+      "He Bo",
+      "Nu Wa",
+      "Zhong Kui",
+      "Anubis",
+      "Isis",
+      "Ra",
+      "Thoth",
+      "Aphrodite",
+      "Chronos",
+      "Hades",
+      "Hera",
+      "Persephone",
+      "Poseidon",
+      "Scylla",
+      "Zeus",
+      "Raijin",
+      "Ah Puch",
+      "Kukulkan",
+      "Freya",
+      "Hel",
+      "Sol",
+      "Discordia",
+      "Janus",
+      "Nox",
+      "Baba Yaga",
+      "Baron Samedi",
+      "Olorun"
+    ];
+    var assassin = [
+      "Da Ji",
+      "Ne Zha",
+      "Bastet",
+      "Serqet",
+      "Set",
+      "Arachne",
+      "Nemesis",
+      "Thanatos",
+      "Bakasura",
+      "Kali",
+      "Ravana",
+      "Susano",
+      "Tsukuyomi",
+      "Awilix",
+      "Camazotz",
+      "Hun Batz",
+      "Fenrir",
+      "Loki",
+      "Ratatoskr",
+      "Thor",
+      "Pele",
+      "Mercury"
+    ];
+    function warriorGet() {
+      document.getElementById("warrior").innerHTML =
+        warrior[Math.floor(Math.random() * warrior.length)];
+    }
+    function guardianGet() {
+      document.getElementById("guardian").innerHTML =
+        guardian[Math.floor(Math.random() * guardian.length)];
+    }
+    function assassinGet() {
+      document.getElementById("assassin").innerHTML =
+        assassin[Math.floor(Math.random() * assassin.length)];
+    }
+    function hunterGet() {
+      document.getElementById("hunter").innerHTML =
+        hunter[Math.floor(Math.random() * hunter.length)];
+    }
+    function mageGet() {
+      document.getElementById("mage").innerHTML =
+        mage[Math.floor(Math.random() * mage.length)];
+    }
+  </script>
+</html>
